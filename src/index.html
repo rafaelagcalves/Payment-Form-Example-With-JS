@@ -1,29 +1,395 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello Rigo with Vanilla.js</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-      integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-    <link rel="shortcut icon" href="./4geeks.ico" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+      crossorigin="anonymous"
+    />
+    <title>Formulario</title>
   </head>
-  <body>
-    <div class="container-fluid text-center">
-      <h1 class="mt-5">Hello Rigo!</h1>
-      <img src="./rigo-baby.jpg" />
-      <p class="alert alert-warning mt-4">
-        If this text is <b>not</b> centered and <b>yellow</b>, you probably have
-        an error
-      </p>
-      <div class="fixed-bottom p-4">
-        Made with ❤️ by
-        <a href="https://www.4geeksacademy.com">4Geeks Academy</a>
+  <body class="p-3">
+    <div class="container-fluid">
+      <div class="card mb-3 offset-2 col-8">
+        <div class="card-header bg-light row d-flex justify-content">
+          <span class="h4 font-weight-bold"> Payment form example </span>
+        </div>
+        <form>
+          <div class="card-body">
+            <div id="fail" class="alert alert-danger" role="alert">
+              Some fields are missing
+            </div>
+            <div class="row d-flex justify-content-between">
+              <div class="form-group col-5 font-weight-bold">
+                <label for="inputCard#">Card #</label>
+                <input
+                  type="text"
+                  id="myCard"
+                  class="form-control"
+                  name="inputCard#"
+                  placeholder="XXXX-XXXX-XXXX-XXXX"
+                  maxlength="16"
+                  size="16"
+                  minlength="16"
+                  required
+                />
+              </div>
+              <div class="form-group col-3 font-weight-bold">
+                <label for="inputCvc"> CVC # </label>
+                <input
+                  type="text"
+                  id="myCvc"
+                  class="form-control"
+                  name="inputCvc"
+                  placeholder="XXXX"
+                  maxlength="4"
+                  size="3"
+                  minlength="3"
+                  required
+                />
+              </div>
+              <div class="form-group col-4 font-weight-bold">
+                <label for="inputAmount"> Amount </label>
+                <div class="d-flex justify-content-between">
+                  <i class="fas fa-dollar-sign mt-2 mr-2"></i>
+                  <input
+                    type="number"
+                    id="myAmount"
+                    class="form-control"
+                    name="inputAmount"
+                    placeholder="Amount"
+                    step="0.01"
+                    min="0"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+              <div class="form-group col-6 font-weight-bold">
+                <label for="inputFirstName"> First Name</label>
+                <input
+                  type="text"
+                  id="firstNamne"
+                  class="form-control"
+                  name="inputFirstName"
+                  requiered
+                />
+              </div>
+              <div class="form-group col-6 font-weight-bold">
+                <label for="inputLastName"> Last Name </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="form-control"
+                  name="inputLastName"
+                  required
+                />
+              </div>
+            </div>
+            <div class="row d-flex justify-content-between">
+              <div class="form-group col-md-6 font-weight-bold">
+                <label for="inputCity">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  class="form-control"
+                  name="inputCity"
+                  pattern="[a-zA-Z ]{2,15}"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-3 font-weight-bold">
+                <label for="inputState">State</label>
+                <!--lista de ciudades a partir de linea 58-->
+                <select
+                  id="state"
+                  class="form-control custom-select"
+                  name="inputState"
+                  class="form-control"
+                  required
+                >
+                  <option class="text-white bg-warning" selected
+                    >Choose...</option
+                  >
+                  <!-- <div class="col-sm-3 pb-3">
+                                    <label for="exampleSt">State</label> 
+                                    <select class="form-control custom-select" id="exampleSt">
+                                    <option class="text-white bg-warning"> -->
+                  Pick a state
+                  <option value="AL">
+                    Alabama
+                  </option>
+                  <option value="AK">
+                    Alaska
+                  </option>
+                  <option value="AZ">
+                    Arizona
+                  </option>
+                  <option value="AR">
+                    Arkansas
+                  </option>
+                  <option value="CA">
+                    California
+                  </option>
+                  <option value="CO">
+                    Colorado
+                  </option>
+                  <option value="CT">
+                    Connecticut
+                  </option>
+                  <option value="DE">
+                    Delaware
+                  </option>
+                  <option value="DC">
+                    District Of Columbia
+                  </option>
+                  <option value="FL">
+                    Florida
+                  </option>
+                  <option value="GA">
+                    Georgia
+                  </option>
+                  <option value="HI">
+                    Hawaii
+                  </option>
+                  <option value="ID">
+                    Idaho
+                  </option>
+                  <option value="IL">
+                    Illinois
+                  </option>
+                  <option value="IN">
+                    Indiana
+                  </option>
+                  <option value="IA">
+                    Iowa
+                  </option>
+                  <option value="KS">
+                    Kansas
+                  </option>
+                  <option value="KY">
+                    Kentucky
+                  </option>
+                  <option value="LA">
+                    Louisiana
+                  </option>
+                  <option value="ME">
+                    Maine
+                  </option>
+                  <option value="MD">
+                    Maryland
+                  </option>
+                  <option value="MA">
+                    Massachusetts
+                  </option>
+                  <option value="MI">
+                    Michigan
+                  </option>
+                  <option value="MN">
+                    Minnesota
+                  </option>
+                  <option value="MS">
+                    Mississippi
+                  </option>
+                  <option value="MO">
+                    Missouri
+                  </option>
+                  <option value="MT">
+                    Montana
+                  </option>
+                  <option value="NE">
+                    Nebraska
+                  </option>
+                  <option value="NV">
+                    Nevada
+                  </option>
+                  <option value="NH">
+                    New Hampshire
+                  </option>
+                  <option value="NJ">
+                    New Jersey
+                  </option>
+                  <option value="NM">
+                    New Mexico
+                  </option>
+                  <option value="NY">
+                    New York
+                  </option>
+                  <option value="NC">
+                    North Carolina
+                  </option>
+                  <option value="ND">
+                    North Dakota
+                  </option>
+                  <option value="OH">
+                    Ohio
+                  </option>
+                  <option value="OK">
+                    Oklahoma
+                  </option>
+                  <option value="OR">
+                    Oregon
+                  </option>
+                  <option value="PA">
+                    Pennsylvania
+                  </option>
+                  <option value="RI">
+                    Rhode Island
+                  </option>
+                  <option value="SC">
+                    South Carolina
+                  </option>
+                  <option value="SD">
+                    South Dakota
+                  </option>
+                  <option value="TN">
+                    Tennessee
+                  </option>
+                  <option value="TX">
+                    Texas
+                  </option>
+                  <option value="UT">
+                    Utah
+                  </option>
+                  <option value="VT">
+                    Vermont
+                  </option>
+                  <option value="VA">
+                    Virginia
+                  </option>
+                  <option value="WA">
+                    Washington
+                  </option>
+                  <option value="WV">
+                    West Virginia
+                  </option>
+                  <option value="WI">
+                    Wisconsin
+                  </option>
+                  <option value="WY">
+                    Wyoming
+                  </option>
+                </select>
+              </div>
+              <div class="form-group col-md-3 font-weight-bold">
+                <label for="inputPostalCode">Postal Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputPostalCode"
+                  maxlength="5"
+                  size="5"
+                  minlength="5"
+                  pattern="[0-9]"
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-3">
+                <label for="cards" class="d-block font-weight-bold"
+                  >We accept:</label
+                >
+                <div class="bg-secondary rounded p-2">
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="cards"
+                      id="card1"
+                      value="option1"
+                    />
+                    <label class="form-check-label" for="card1"
+                      ><i class="fab fa-cc-mastercard text-white"></i
+                    ></label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="cards"
+                      id="card2"
+                      value="option2"
+                    />
+                    <label class="form-check-label" for="card2"
+                      ><i class="fab fa-cc-visa text-white"></i
+                    ></label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="cards"
+                      id="card3"
+                      value="option3"
+                    />
+                    <label class="form-check-label" for="card3"
+                      ><i class="fab fa-cc-diners-club text-white"></i
+                    ></label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="cards"
+                      id="card4"
+                      value="option4"
+                    />
+                    <label class="form-check-label" for="card4"
+                      ><i class="fab fa-cc-amex text-white"></i
+                    ></label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6 mb-3 offset-3">
+                <label for="msg" class="font-weight-bold">Message</label>
+                <textarea class="form-control" name="msg" rows="3"></textarea>
+                <p class="small text-muted">Add any note here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bg-light row d-flex justify-content-end">
+            <div class="form-group">
+              <button type="reset" id="#myCancel" class="btn btn-secondary">
+                Cancel
+              </button>
+              <button type="submit" id="mySend" class="btn btn-primary">
+                Send
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
