@@ -28,17 +28,24 @@
         </div>
         <form id="form">
           <div class="card-body">
-            <div id="fail" class="alert alert-danger" role="alert">
+            <div id="fail" class="alert alert-danger d-none" role="alert">
               Some fields are missing
+            </div>
+            <div
+              id="succesMessage"
+              class="alert alert-succes d-none"
+              role="alert"
+            >
+              You form has been succesfully submitted!
             </div>
             <div class="row d-flex justify-content-between">
               <div class="form-group col-5 font-weight-bold">
-                <label for="inputCard#">Card #</label>
+                <label for="inputCard">Card #</label>
                 <input
                   type="text"
                   id="myCard"
                   class="form-control"
-                  name="inputCard#"
+                  name="inputCard"
                   placeholder="XXXX-XXXX-XXXX-XXXX"
                   maxlength="16"
                   size="16"
@@ -72,7 +79,6 @@
                     placeholder="Amount"
                     step="0.01"
                     min="0"
-                    required
                   />
                 </div>
               </div>
@@ -85,7 +91,6 @@
                   id="firstNamne"
                   class="form-control"
                   name="inputFirstName"
-                  requiered
                 />
               </div>
               <div class="form-group col-6 font-weight-bold">
@@ -95,7 +100,6 @@
                   id="lastName"
                   class="form-control"
                   name="inputLastName"
-                  required
                 />
               </div>
             </div>
@@ -108,7 +112,6 @@
                   class="form-control"
                   name="inputCity"
                   pattern="[a-zA-Z ]{2,15}"
-                  required
                 />
               </div>
               <div class="form-group col-md-3 font-weight-bold">
@@ -119,7 +122,6 @@
                   class="form-control custom-select"
                   name="inputState"
                   class="form-control"
-                  required
                 >
                   <option class="text-white bg-warning" selected
                     >Choose...</option
@@ -355,7 +357,12 @@
               </div>
               <div class="col-6 mb-3 offset-3">
                 <label for="msg" class="font-weight-bold">Message</label>
-                <textarea class="form-control" name="msg" rows="3"></textarea>
+                <textarea
+                  id="textArea"
+                  class="form-control"
+                  name="msg"
+                  rows="3"
+                ></textarea>
                 <p class="small text-muted">Add any note here.</p>
               </div>
             </div>
