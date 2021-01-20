@@ -5,6 +5,18 @@ import "./style.css";
 import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
+const creditCard = document.querySelector("#myCard");
+const cvc = document.querySelector("#myCvc");
+const amouunt = document.querySelector("#myAmount");
+const firstName = document.querySelector("#firstName");
+const lastName = document.querySelector("#lastName");
+const city = document.querySelector("#city");
+const state = document.querySelector("#state");
+const postalCode = document.querySelector("#postalCode");
+const textArea = document.querySelector("#textArea");
+const citys = ["madrid", "barcelona", "sevilla", "almeria", "zaragoza"];
+const states = ["01", "02", "03", "04", "05"];
+
 function showError(input) {
   let errorMessage = document.querySelector("#fail");
   errorMessage.classList.remove("d-none");
@@ -23,32 +35,89 @@ function showSent(input) {
   }, 3000);
 }
 
-const creditCard = document.querySelector("#myCard");
-const cvc = document.querySelector("#myCvc");
-const amouunt = document.querySelector("#myAmount");
-const FirstName = document.querySelector("#firstName");
-const lastName = document.querySelector("#lastName");
-const city = document.querySelector("#city");
-const state = document.querySelector("#state");
-//const city = document.querySelector("#lastName");
-const textArea = document.querySelector("#textArea");
 // 1234123412341234
-function checkCreditCardAndCvc(input) {
+function checkCreditCardAndCvcAndAmount(input) {
   input.addEventListener("focusout", event => {
-    if (/[^\d,]/.test(event.key) && event.key !== "Backspace") {
-      showSent(input);
+    let inputValue = input.value;
+    if (inputValue.length > 0 && inputValue.length < 150) {
+      input.classList.add("is-valid");
+      input.classList.remove("is-invalid");
     } else {
-      showError(input);
+      input.classList.remove("is-valid");
+      input.classList.add("is-invalid");
     }
   });
 }
 
+function checkFirstAndLastName(input) {
+  input.addEventListener("focusout", event => {
+    let inputValue = input.value;
+    if (inputValue.length > 0 && inputValue.length < 150) {
+      input.classList.add("is-valid");
+      input.classList.remove("is-invalid");
+    } else {
+      input.classList.remove("is-valid");
+      input.classList.add("is-invalid");
+    }
+  });
+}
+
+function checkCity() {
+  city.addEventListener("focusout", event => {
+    let cityValue = city.value;
+    cityValue = cityValue.toLowerCase();
+    city.value = cityValue.charAt(0).toUpperCase() + cityValue.slice(1);
+    if (citys.includes(cityValue)) {
+      city.classList.add("is-valid");
+      city.classList.remove("is-invalid");
+    } else {
+      city.classList.remove("is-valid");
+      city.classList.add("is-invalid");
+    }
+  });
+}
+
+function checkState() {
+  state.addEventListener("focusout", event => {
+    let stateValue = state.value;
+    if (states.includes(stateValue)) {
+      state.classList.add("is-valid");
+      state.classList.remove("is-invalid");
+    } else {
+      state.classList.remove("is-valid");
+      state.classList.add("is-invalid");
+    }
+  });
+}
+
+function checkPostalCode() {
+  postalCode.addEventListener("focusout", event => {
+    let postalCode = postalCode.value;
+    if (postalCode.length > 0 && postalCode.length <= 5) {
+      postalCode.classList.add("is-valid");
+      state.classList.remove("is-invalid");
+    } else {
+      state.classList.remove("is-valid");
+      state.classList.add("is-invalid");
+    }
+  });
+}
+
+function validateForm() {
+  checkCreditCardAndCvcAndAmount(creditCard);
+  checkCreditCardAndCvcAndAmount(cvc);
+  checkCreditCardAndCvcAndAmount(amouunt);
+  checkFirstAndLastName(firstName);
+  checkFirstAndLastName(lastName);
+  checkCity();
+  checkState();
+}
+
 window.onload = () => {
-  checkCreditCardAndCvc(creditCard);
-  checkCreditCardAndCvc(cvc);
+  validateForm();
 };
-//   let form = document.querySelectorAll("#form");
-//   form.addEventListener("submit", validateForm());
+//  let form = document.querySelectorAll("#form");
+//  form.addEventListener("submit", validateForm());
 //   let creditCard = document.querySelector("#myCard");
 //   creditCard.addEventListener("focusout", validateForm());
 
