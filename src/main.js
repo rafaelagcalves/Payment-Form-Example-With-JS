@@ -7,7 +7,7 @@ import "./assets/img/4geeks.ico";
 
 const creditCard = document.querySelector("#myCard");
 const cvc = document.querySelector("#myCvc");
-const amouunt = document.querySelector("#myAmount");
+const amount = document.querySelector("#myAmount");
 const firstName = document.querySelector("#firstName");
 const lastName = document.querySelector("#lastName");
 const city = document.querySelector("#city");
@@ -16,6 +16,14 @@ const postalCode = document.querySelector("#postalCode");
 const textArea = document.querySelector("#textArea");
 const citys = ["madrid", "barcelona", "sevilla", "almeria", "zaragoza"];
 const states = ["01", "02", "03", "04", "05"];
+
+window.onload = () => {
+  checkCreditCard(creditCard);
+  checkCvc(cvc);
+  checkAmount(amount);
+  checkFirstAndLastName(firstName);
+  checkFirstAndLastName(lastName);
+};
 
 function showError(input) {
   let errorMessage = document.querySelector("#fail");
@@ -36,31 +44,37 @@ function showSent(input) {
 }
 
 // 1234123412341234
-function checkCreditCardAndCvcAndAmount(input) {
+const checkCreditCard = input => {
   input.addEventListener("focusout", event => {
-    let inputValue = input.value;
-    if (inputValue.length > 0 && inputValue.length < 150) {
-      input.classList.add("is-valid");
-      input.classList.remove("is-invalid");
-    } else {
-      input.classList.remove("is-valid");
-      input.classList.add("is-invalid");
-    }
+    isNumber(input) && input.value.length >= 14 && input.value.length <= 19
+      ? isValid(input)
+      : isInvalid(input);
   });
-}
+};
 
-function checkFirstAndLastName(input) {
+const checkCvc = input => {
   input.addEventListener("focusout", event => {
-    let inputValue = input.value;
-    if (inputValue.length > 0 && inputValue.length < 150) {
-      input.classList.add("is-valid");
-      input.classList.remove("is-invalid");
-    } else {
-      input.classList.remove("is-valid");
-      input.classList.add("is-invalid");
-    }
+    isNumber(input) && input.value.length >= 3 && input.value.length <= 4
+      ? isValid(input)
+      : isInvalid(input);
   });
-}
+};
+
+const checkAmount = input => {
+  input.addEventListener("focusout", event => {
+    Number(input.value) && input.value < 10000
+      ? isValid(input)
+      : isInvalid(input);
+  });
+};
+
+const checkFirstAndLastName = input => {
+  input.addEventListener("focusout", event => {
+    isText(input) && input.value.length > 0 && input.value.length < 150
+      ? isValid(input)
+      : isInvalid(input);
+  });
+};
 
 function checkCity() {
   city.addEventListener("focusout", event => {
@@ -103,6 +117,26 @@ function checkPostalCode() {
   });
 }
 
+const isInvalid = input => {
+  input.classList.remove("is-valid");
+  input.classList.add("is-invalid");
+};
+
+const isValid = input => {
+  input.classList.add("is-valid");
+  input.classList.remove("is-invalid");
+};
+
+const isNumber = input => {
+  return Number(input.value) % 1 == 0;
+};
+
+const isText = input => {
+  let inputText = /^[a-zA-Z]+$/.test(input.value);
+  return inputText;
+};
+// forEach para recorrer la lista de todos los inputs y ver si tienen algún invalid.
+
 function validateForm() {
   checkCreditCardAndCvcAndAmount(creditCard);
   checkCreditCardAndCvcAndAmount(cvc);
@@ -113,9 +147,6 @@ function validateForm() {
   checkState();
 }
 
-window.onload = () => {
-  validateForm();
-};
 //  let form = document.querySelectorAll("#form");
 //  form.addEventListener("submit", validateForm());
 //   let creditCard = document.querySelector("#myCard");
