@@ -14,8 +14,10 @@ const city = document.querySelector("#city");
 const state = document.querySelector("#state");
 const postalCode = document.querySelector("#postalCode");
 const textArea = document.querySelector("#textArea");
+const form = document.querySelector("#form");
 const citys = ["madrid", "barcelona", "sevilla", "almeria", "zaragoza"];
 const states = ["01", "02", "03", "04", "05"];
+const cancelText = ["mierda", "subnormal", "estupido"];
 
 window.onload = () => {
   checkCreditCard(creditCard);
@@ -23,27 +25,31 @@ window.onload = () => {
   checkAmount(amount);
   checkFirstAndLastName(firstName);
   checkFirstAndLastName(lastName);
+  checkCity(city);
+  checkState(state);
+  checkPostalCode(postalCode);
+  checkTextArea(textArea);
 };
 
-function showError(input) {
+const showError = input => {
   let errorMessage = document.querySelector("#fail");
   errorMessage.classList.remove("d-none");
   input.classList.add("is-invalid");
   setTimeout(function() {
     errorMessage.classList.add("d-none");
   }, 3000);
-}
+};
 
-function showSent(input) {
+const showSent = input => {
   let succesMessage = document.querySelector("#succesMessage");
   succesMessage.classList.remove("d-none");
   input.classList.add("is-valid");
   setTimeout(function() {
     succesMessage.classList.add("d-none");
   }, 3000);
-}
+};
 
-// 1234123412341234
+// 1234123412341234 // añadir el algoritmo de LU
 const checkCreditCard = input => {
   input.addEventListener("focusout", event => {
     isNumber(input) && input.value.length >= 14 && input.value.length <= 19
@@ -76,46 +82,43 @@ const checkFirstAndLastName = input => {
   });
 };
 
-function checkCity() {
-  city.addEventListener("focusout", event => {
+const checkCity = input => {
+  input.addEventListener("focusout", event => {
     let cityValue = city.value;
     cityValue = cityValue.toLowerCase();
     city.value = cityValue.charAt(0).toUpperCase() + cityValue.slice(1);
-    if (citys.includes(cityValue)) {
-      city.classList.add("is-valid");
-      city.classList.remove("is-invalid");
-    } else {
-      city.classList.remove("is-valid");
-      city.classList.add("is-invalid");
-    }
+    isText(input) && citys.includes(cityValue)
+      ? isValid(input)
+      : isInvalid(input);
   });
-}
+};
 
-function checkState() {
-  state.addEventListener("focusout", event => {
+const checkState = input => {
+  input.addEventListener("focusout", event => {
     let stateValue = state.value;
-    if (states.includes(stateValue)) {
-      state.classList.add("is-valid");
-      state.classList.remove("is-invalid");
-    } else {
-      state.classList.remove("is-valid");
-      state.classList.add("is-invalid");
-    }
+    states.includes(stateValue) ? isValid(input) : isInvalid(input);
   });
-}
+};
 
-function checkPostalCode() {
-  postalCode.addEventListener("focusout", event => {
-    let postalCode = postalCode.value;
-    if (postalCode.length > 0 && postalCode.length <= 5) {
-      postalCode.classList.add("is-valid");
-      state.classList.remove("is-invalid");
-    } else {
-      state.classList.remove("is-valid");
-      state.classList.add("is-invalid");
-    }
+const checkPostalCode = input => {
+  input.addEventListener("focusout", event => {
+    isNumber(input) && input.value.length == 5
+      ? isValid(input)
+      : isInvalid(input);
   });
-}
+};
+// revisar
+const checkTextArea = input => {
+  input.addEventListener("focusout", event => {
+    !cancelText.includes(input.value) ? isValid(input) : isInvalid(input);
+  });
+};
+
+const checkForm = input => {
+  input.addEventListener("submit", event => {
+    event.preventDefault();
+  });
+};
 
 const isInvalid = input => {
   input.classList.remove("is-valid");
@@ -132,103 +135,20 @@ const isNumber = input => {
 };
 
 const isText = input => {
-  let inputText = /^[a-zA-Z]+$/.test(input.value);
+  let inputText = /^[a-zA-Z\s]+$/.test(input.value);
   return inputText;
 };
 // forEach para recorrer la lista de todos los inputs y ver si tienen algún invalid.
 
-function validateForm() {
-  checkCreditCardAndCvcAndAmount(creditCard);
-  checkCreditCardAndCvcAndAmount(cvc);
-  checkCreditCardAndCvcAndAmount(amouunt);
+const validateForm = event => {
+  event.preventDefault();
+  checkCreditCard(creditCard);
+  checkCvc(cvc);
+  checkAmount(amount);
   checkFirstAndLastName(firstName);
   checkFirstAndLastName(lastName);
-  checkCity();
-  checkState();
-}
-
-//  let form = document.querySelectorAll("#form");
-//  form.addEventListener("submit", validateForm());
-//   let creditCard = document.querySelector("#myCard");
-//   creditCard.addEventListener("focusout", validateForm());
-
-//   function validateForm() {
-//     //preventDefault();
-//     checkCreditCard();
-//   }
-//}
-
-// function validateForm() {
-//   //preventDefault();
-//   checkCreditCard();
-// }
-// function checkCreditCard() {
-//   let creditCard = document.querySelector("#myCard");
-//   creditCard.addEventListener("keydown", event => {
-//     if (/[^\d,]/.test(event.key) && event.key !== "Backspace") {
-//     }
-//   });
-// }
-
-// // let cardValue = creditCard.value;
-//     //"focusout" //let cardValue = creditCard.value
-//     //     });
-// function validateForm() {
-//   //preventDefault();
-//   checkCreditCard();
-// }
-
-// function checkCreditCard() {
-//   let creditCard = document.querySelector("#myCard");
-//   creditCard.addEventListener("input", event => {
-//     // let cardValue = creditCard.value;
-//     //"focusout" //let cardValue = creditCard.value
-//     if (event.data >= 0) {
-//       console.log("has tecleado numeros");
-//     } else {
-//       showError(creditCard);
-//     }
-//   });
-// }
-
-// //   let myButton = document.querySelector("#mySend");
-// //   myButton.addEventListener("click", event => {
-// //     event.preventDefault();
-// //     if (creditCard.value === "") {
-// //       showError(creditCard);
-// //     }
-// //   });
-// // };
-
-// //   let creditCard = document.querySelector("#myCard");
-// //   creditCard.addEventListener("input", event => {
-// //     console.log(event);
-// //     if (event>= 0) {
-// //       console.log("has tecleado numeros");
-// //     } else {
-// //       console.log("has tecleado algo que no es un numero");
-// //       creditCard.classList.add("bg-danger");
-// //     }
-// //   });
-// //this.submit();
-// //}
-// //let myButton = document.querySelector("#mySend");
-// //let creditCard = document.querySelector("#myCard");
-// //  myButton.addEventListener("click", event => {
-// //    console.log(event);
-// //    if (event.size == 16) {
-// //      event.preventDefault();
-// //    }
-// //creditCard.addEventListener("keypress", event => {
-// //console.log(event);
-// //     if (23) {
-// //       console.log("estas pulsadno numeros");
-// //     } else {
-// //       console.log("no estas pulsando numeros");
-// //       creditCard.classList.add("bg-danger");
-// //     }
-// //   });
-// //   creditCard.addEventListener("change", event => {
-// //     console.log(event);
-// //   });
-// // });
+  checkCity(city);
+  checkState(state);
+  checkPostalCode(postalCode);
+  checkTextArea(textArea);
+};
