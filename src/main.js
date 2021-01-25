@@ -8,13 +8,18 @@ import "./assets/img/4geeks.ico";
 const creditCard = document.querySelector("#myCard");
 const cvc = document.querySelector("#myCvc");
 const amount = document.querySelector("#myAmount");
+
 const firstName = document.querySelector("#firstName");
 const lastName = document.querySelector("#lastName");
+
 const city = document.querySelector("#city");
 const state = document.querySelector("#state");
 const postalCode = document.querySelector("#postalCode");
+
 const textArea = document.querySelector("#textArea");
+
 const form = document.querySelector("#form");
+
 const citys = ["madrid", "barcelona", "sevilla", "almeria", "zaragoza"];
 const states = ["01", "02", "03", "04", "05"];
 const cancelText = ["mierda", "subnormal", "estupido"];
@@ -29,30 +34,15 @@ window.onload = () => {
   checkState(state);
   checkPostalCode(postalCode);
   checkTextArea(textArea);
+  checkForm(form);
 };
 
-const showError = input => {
-  let errorMessage = document.querySelector("#fail");
-  errorMessage.classList.remove("d-none");
-  input.classList.add("is-invalid");
-  setTimeout(function() {
-    errorMessage.classList.add("d-none");
-  }, 3000);
-};
-
-const showSent = input => {
-  let succesMessage = document.querySelector("#succesMessage");
-  succesMessage.classList.remove("d-none");
-  input.classList.add("is-valid");
-  setTimeout(function() {
-    succesMessage.classList.add("d-none");
-  }, 3000);
-};
-
-// 1234123412341234 // añadir el algoritmo de LU
 const checkCreditCard = input => {
   input.addEventListener("focusout", event => {
-    isNumber(input) && input.value.length >= 14 && input.value.length <= 19
+    isNumber(input) &&
+    input.value.length >= 14 &&
+    input.value.length <= 19 &&
+    luhn(input.value)
       ? isValid(input)
       : isInvalid(input);
   });
@@ -107,7 +97,7 @@ const checkPostalCode = input => {
       : isInvalid(input);
   });
 };
-// revisar
+
 const checkTextArea = input => {
   input.addEventListener("focusout", event => {
     !cancelText.includes(input.value) ? isValid(input) : isInvalid(input);
@@ -117,7 +107,44 @@ const checkTextArea = input => {
 const checkForm = input => {
   input.addEventListener("submit", event => {
     event.preventDefault();
+    let options = document.querySelectorAll("input.is-valid, input.is-invalid");
+    let inputInvalid = [];
+    let inputValid = [];
+    for (let i = 0; i < options.length; i++) {
+      options[i].className.includes("is-invalid")
+        ? inputInvalid.push(options[i])
+        : false;
+      options[i].className.includes("is-valid")
+        ? inputValid.push(options[i])
+        : false;
+    }
+    for (let z = 0; z < inputInvalid.length; z++) {
+      inputInvalid.length > 0 ? showError(input) : false;
+    }
+    for (let y = 0; y < inputValid.length; y++) {
+      inputValid.length == 7 ? showSent(input) : false;
+    }
   });
+};
+
+// Support Functions
+
+const showError = input => {
+  let errorMessage = document.querySelector("#fail");
+  errorMessage.classList.remove("d-none");
+  input.classList.add("is-invalid");
+  setTimeout(function() {
+    errorMessage.classList.add("d-none");
+  }, 3000);
+};
+
+const showSent = input => {
+  let successMessage = document.querySelector("#successMessage");
+  successMessage.classList.remove("d-none");
+  input.classList.add("is-valid");
+  setTimeout(function() {
+    successMessage.classList.add("d-none");
+  }, 3000);
 };
 
 const isInvalid = input => {
@@ -138,17 +165,17 @@ const isText = input => {
   let inputText = /^[a-zA-Z\s]+$/.test(input.value);
   return inputText;
 };
-// forEach para recorrer la lista de todos los inputs y ver si tienen algún invalid.
 
-const validateForm = event => {
-  event.preventDefault();
-  checkCreditCard(creditCard);
-  checkCvc(cvc);
-  checkAmount(amount);
-  checkFirstAndLastName(firstName);
-  checkFirstAndLastName(lastName);
-  checkCity(city);
-  checkState(state);
-  checkPostalCode(postalCode);
-  checkTextArea(textArea);
+const luhn = array => {
+  return function(number) {
+    let len = number ? number.length : 0,
+      bit = 1,
+      sum = 0;
+
+    while (len--) {
+      sum += !(bit ^= 1) ? parseInt(number[len], 10) : array[number[len]];
+    }
+    return sum % 10 === 0 && sum > 0;
+  };
 };
+[0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
