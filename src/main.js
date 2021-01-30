@@ -20,7 +20,7 @@ const textArea = document.querySelector("#textArea");
 
 const form = document.querySelector("#form");
 
-const citys = ["madrid", "barcelona", "sevilla", "almeria", "zaragoza"];
+const citys = ["portland", "orlando", "anchorage", "fairbanks", "waterbury"];
 const states = ["01", "02", "03", "04", "05"];
 const cancelText = ["mierda", "subnormal", "estupido"];
 
